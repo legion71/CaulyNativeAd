@@ -19,7 +19,7 @@ import com.fsn.cauly.CaulyNativeAdViewListener;
 
 public class NativeListActivity extends Activity implements CaulyNativeAdViewListener  {
 
-	String APP_CODE="cZCXKCsY";//"gatester";  // your app code which you are assigned.
+	String APP_CODE="";// your app code which you are assigned.
 	String[] TITLE = {"빈폴 2014 S/S시즌오프 UP TO 30%+10%...","화제의 텀블러 리버스 보틀/전용파우치","제이에스티나 외 쥬얼리& 시계 여름아이템 ~ 50% OFF",
 					"MACMOC 2014 Molling & Cushy Series","애플 힙, 힙업을위한다면!","꼭 한번 읽어봐야 할 책!","네스카페 돌체구스토 피콜로&캡슐"};
 	String[] SUBTITLE={"신세계몰 해피바이러스","요즘 핫한 텀블러! 리버스보틀","제이에스티나/스톤헨지/마크제이콥스/TISSOT 쥬얼리&시계 특가상품 + 추가쿠폰...","신세계몰 해피바이러스 여성샌들/슬리퍼 ",
@@ -45,40 +45,22 @@ public class NativeListActivity extends Activity implements CaulyNativeAdViewLis
 		showNative();
     }
 	
-	
-	public void showNative()
+	// Request Native AD
+	// 네이티브 애드에 보여질 디자인을 정의하고 세팅하는 작업을 수행한다. (icon, image, title, subtitle, description ...)
+	// CaulyNativeAdViewListener 를 등록하여 onReceiveNativeAd or onFailedToReceiveNativeAd 로 네이티브광고의 상태를 전달받는다.
+  	public void showNative()
 	{
 		CaulyAdInfo adInfo = new CaulyNativeAdInfoBuilder(APP_CODE)
-		.layoutID(R.layout.activity_native_iconlist)
-		.iconImageID(R.id.icon)
-		.titleID(R.id.title)
-		.subtitleID(R.id.subtitle)
+		.layoutID(R.layout.activity_native_iconlist)    // 네이티브애드에 보여질 디자인을 작성하여 등록한다.
+		.iconImageID(R.id.icon)							// 아이콘 등록
+		.titleID(R.id.title)							// 제목 등록
+		.subtitleID(R.id.subtitle)						// 부제목 등록
 		.build();
 		CaulyNativeAdView nativeAd = new CaulyNativeAdView(this);
 		nativeAd.setAdInfo(adInfo);
 		nativeAd.setAdViewListener(this);
 		nativeAd.request();
 
-	}
-	public void showNativeCustom()
-	{
-		CaulyAdInfo adInfo = new CaulyNativeAdInfoBuilder(APP_CODE)
-		.layoutID(R.layout.activity_native_iconlist)
-		.iconImageID(R.id.icon)
-		.titleID(R.id.title)
-		.subtitleID(R.id.subtitle)
-		.landingLayoutID(R.layout.activity_native_detail)
-		.landingMainImageID(R.id.native_ad_main_image)
-		.landingIconImageID(R.id.native_ad_icon_image)
-		.landingTextID(R.id.native_ad_text)
-		.landingTitleID(R.id.native_ad_title)
-		.landingSubtitleID(R.id.native_ad_subtitle)
-		.landingCloseID(R.id.native_close_btn)
-		.build();
-		CaulyNativeAdView nativeAd = new CaulyNativeAdView(this);
-		nativeAd.setAdInfo(adInfo);
-		nativeAd.setAdViewListener(this);
-		nativeAd.request();
 	}
 	
 	class ListAdapter extends BaseAdapter 
@@ -101,6 +83,7 @@ public class NativeListActivity extends Activity implements CaulyNativeAdViewLis
 			return position;
 		}
 
+		// 새로운 네이티브애드 타입이 존재하기 때문에 하나를 등록해준다. 
 		@Override
 		public int getItemViewType(int position) {
 			if(CaulyNativeAdHelper.getInstance().isAdPosition(listview,position))
@@ -108,57 +91,71 @@ public class NativeListActivity extends Activity implements CaulyNativeAdViewLis
 			else 
 				return YOUR_ITEM_TYPE;
 		}
+		
+		// 기존의 레이아웃타입 + 1 의 총개수 등록
 		@Override
 		public int getViewTypeCount() {
 			return YOUR_ITEM_COUNT+1;
 		}
+		
+		
 		public View getView(int position, View convertView, ViewGroup parent) {
+			
+			// CaulyNativeAdHelper를 이용하여, 현재 리스트뷰와 등록한 포지션을 이용하여 , 현재 뷰가 NativeAd인지 아닌지를 반환한다.
 			if(CaulyNativeAdHelper.getInstance().isAdPosition(listview, position) )
 			{
 				return CaulyNativeAdHelper.getInstance().getView(listview,position, convertView);
 			}
-			
-			if(convertView==null)
-			{
-				View view=  View.inflate(NativeListActivity.this, R.layout.activity_listview, null);
-				TextView title = (TextView) view.findViewById(R.id.title);
-				TextView subtitle = (TextView) view.findViewById(R.id.subtitle);
-				TextView description = (TextView) view.findViewById(R.id.description);
-				TextView tag = (TextView) view.findViewById(R.id.tag);
-				ImageView icon = (ImageView)view.findViewById(R.id.icon);
-				icon.setBackgroundResource(getItem(position).img);
-				title.setText(""+getItem(position).title);
-				subtitle.setText(""+getItem(position).subTitle);
-				tag.setText(""+getItem(position).tag);
-				description.setText(""+getItem(position).description);
-				return view;
-			}
 			else
 			{
-				TextView title = (TextView) convertView.findViewById(R.id.title);
-				TextView subtitle = (TextView) convertView.findViewById(R.id.subtitle);
-				ImageView icon = (ImageView)convertView.findViewById(R.id.icon);
-				TextView description = (TextView) convertView.findViewById(R.id.description);
-				TextView tag = (TextView) convertView.findViewById(R.id.tag);
-				title.setText(""+getItem(position).title);
-				subtitle.setText(""+getItem(position).subTitle);
-				icon.setBackgroundResource(getItem(position).img);
-				tag.setText(""+getItem(position).tag);
-				description.setText(""+getItem(position).description);
+				//기존의 getView 코드 구현
+				
+				if(convertView==null)
+				{
+					View view=  View.inflate(NativeListActivity.this, R.layout.activity_listview, null);
+					TextView title = (TextView) view.findViewById(R.id.title);
+					TextView subtitle = (TextView) view.findViewById(R.id.subtitle);
+					TextView description = (TextView) view.findViewById(R.id.description);
+					TextView tag = (TextView) view.findViewById(R.id.tag);
+					ImageView icon = (ImageView)view.findViewById(R.id.icon);
+					icon.setBackgroundResource(getItem(position).img);
+					title.setText(""+getItem(position).title);
+					subtitle.setText(""+getItem(position).subTitle);
+					tag.setText(""+getItem(position).tag);
+					description.setText(""+getItem(position).description);
+					return view;
+				}
+				else
+				{
+					TextView title = (TextView) convertView.findViewById(R.id.title);
+					TextView subtitle = (TextView) convertView.findViewById(R.id.subtitle);
+					ImageView icon = (ImageView)convertView.findViewById(R.id.icon);
+					TextView description = (TextView) convertView.findViewById(R.id.description);
+					TextView tag = (TextView) convertView.findViewById(R.id.tag);
+					title.setText(""+getItem(position).title);
+					subtitle.setText(""+getItem(position).subTitle);
+					icon.setBackgroundResource(getItem(position).img);
+					tag.setText(""+getItem(position).tag);
+					description.setText(""+getItem(position).description);
+				}
 			}
 			return convertView;
 		}
 	}
 	
+	// 네이티브애드가 없거나, 네트웍상의 이유로 정상적인 수신이 불가능 할 경우 호출이 된다. 
 	public void onFailedToReceiveNativeAd(CaulyNativeAdView adView,	int errorCode, String errorMsg) {
 		
 	}
 	
 	int r=8;
+	// 네이티브애드가 정상적으로 수신되었을 떄, 호출된다.
 	public void onReceiveNativeAd(CaulyNativeAdView adView, boolean isChargeableAd) {
 		
-		mList.add(r,null);
+		mList.add(r,null);		//우선 너의 앱의 리스트에 등록을 하고, 똑같은 위치의 포지션에 수신한 네이티브애드를 등록한다. 
 		CaulyNativeAdHelper.getInstance().add(this,listview,r,adView);
+		
+		
 		r = r+4;
 		mAdapter.notifyDataSetChanged();
 	}
