@@ -118,7 +118,7 @@ public class NativeListActivity extends Activity implements CaulyNativeAdViewLis
 					TextView description = (TextView) view.findViewById(R.id.description);
 					TextView tag = (TextView) view.findViewById(R.id.tag);
 					ImageView icon = (ImageView)view.findViewById(R.id.icon);
-					icon.setBackgroundResource(getItem(position).img);
+					icon.setBackgroundResource(getItem(position).icon);
 					title.setText(""+getItem(position).title);
 					subtitle.setText(""+getItem(position).subTitle);
 					tag.setText(""+getItem(position).tag);
@@ -134,7 +134,7 @@ public class NativeListActivity extends Activity implements CaulyNativeAdViewLis
 					TextView tag = (TextView) convertView.findViewById(R.id.tag);
 					title.setText(""+getItem(position).title);
 					subtitle.setText(""+getItem(position).subTitle);
-					icon.setBackgroundResource(getItem(position).img);
+					icon.setBackgroundResource(getItem(position).icon);
 					tag.setText(""+getItem(position).tag);
 					description.setText(""+getItem(position).description);
 				}
