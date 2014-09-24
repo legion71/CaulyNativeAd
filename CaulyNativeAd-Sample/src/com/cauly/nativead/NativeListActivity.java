@@ -16,6 +16,7 @@ import com.fsn.cauly.CaulyNativeAdHelper;
 import com.fsn.cauly.CaulyNativeAdInfoBuilder;
 import com.fsn.cauly.CaulyNativeAdView;
 import com.fsn.cauly.CaulyNativeAdViewListener;
+import com.fsn.cauly.CaulyAdInfo.Orientation;
 
 public class NativeListActivity extends Activity implements CaulyNativeAdViewListener  {
 
@@ -63,6 +64,13 @@ public class NativeListActivity extends Activity implements CaulyNativeAdViewLis
 
 	}
 	
+  	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		CaulyNativeAdHelper.getInstance().destroy();
+	}
+
+  	
 	class ListAdapter extends BaseAdapter 
 	{
 		private static final int YOUR_ITEM_TYPE = 0;

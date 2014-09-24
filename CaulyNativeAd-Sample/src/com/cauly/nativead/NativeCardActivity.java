@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fsn.cauly.CaulyAdInfo;
+import com.fsn.cauly.CaulyAdInfo.Orientation;
 import com.fsn.cauly.CaulyNativeAdHelper;
 import com.fsn.cauly.CaulyNativeAdInfoBuilder;
 import com.fsn.cauly.CaulyNativeAdView;
@@ -21,7 +22,7 @@ import com.fsn.cauly.CaulyNativeAdViewListener;
 
 public class NativeCardActivity extends Activity implements CaulyNativeAdViewListener  {
 
-	String APP_CODE="cZCXKCsY";//"gatester";  // your app code which you are assigned.
+	String APP_CODE="";// your app code which you are assigned.
 	String[] TITLE = {"블루 & 그레이 톤의 북유럽 인테리어"
 			,"인더스트리얼 카페 Nomad 디자인","닮고싶은 핀란드 아파트 인테리어 - 봄봄이와 하루님의 홈스타일",
 			"맷돌순두부 by 잭슨카멜레온","PAS쟁이x팀버랜드 이벤트"};
@@ -70,12 +71,19 @@ public class NativeCardActivity extends Activity implements CaulyNativeAdViewLis
 		.titleID(R.id.title)							// 제목 등록
 		.subtitleID(R.id.subtitle)						// 부제목 등록
 		.textID(R.id.description)						//자세한 설명 등록
+		.mainImageOrientation(Orientation.PORTRAIT)
 		.build();
 		CaulyNativeAdView nativeView = new CaulyNativeAdView(context);
 		nativeView.setAdInfo(adInfo);
 		nativeView.setAdViewListener(this);
 		nativeView.request();
 
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		CaulyNativeAdHelper.getInstance().destroy();
 	}
 
 	class ListAdapter extends BaseAdapter 
