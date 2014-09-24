@@ -8,12 +8,23 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="100dp" >
-		 <ImageView
+         <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp" >
+         <ImageView
             android:id="@+id/icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
            />
+		 <ImageView
+            android:id="@+id/sponsor"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_alignParentRight="true"
+           />
+        </RelativeLayout>
+		 
 		   <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

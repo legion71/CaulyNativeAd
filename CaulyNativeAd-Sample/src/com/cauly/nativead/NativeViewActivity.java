@@ -11,7 +11,7 @@ import com.fsn.cauly.CaulyNativeAdViewListener;
 
 public class NativeViewActivity extends Activity implements CaulyNativeAdViewListener  {
 
-	String APP_CODE="";// your app code which you are assigned.
+	String APP_CODE="vZxEr8bK";// your app code which you are assigned.
 	ViewGroup native_container;
 	
 	@Override

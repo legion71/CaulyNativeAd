@@ -16,11 +16,12 @@ import com.fsn.cauly.CaulyNativeAdHelper;
 import com.fsn.cauly.CaulyNativeAdInfoBuilder;
 import com.fsn.cauly.CaulyNativeAdView;
 import com.fsn.cauly.CaulyNativeAdViewListener;
+import com.fsn.cauly.CaulyAdInfo.Direction;
 import com.fsn.cauly.CaulyAdInfo.Orientation;
 
 public class NativeListActivity extends Activity implements CaulyNativeAdViewListener  {
 
-	String APP_CODE="";// your app code which you are assigned.
+	String APP_CODE="vZxEr8bK";// your app code which you are assigned.
 	String[] TITLE = {"빈폴 2014 S/S시즌오프 UP TO 30%+10%...","화제의 텀블러 리버스 보틀/전용파우치","제이에스티나 외 쥬얼리& 시계 여름아이템 ~ 50% OFF",
 					"MACMOC 2014 Molling & Cushy Series","애플 힙, 힙업을위한다면!","꼭 한번 읽어봐야 할 책!","네스카페 돌체구스토 피콜로&캡슐"};
 	String[] SUBTITLE={"신세계몰 해피바이러스","요즘 핫한 텀블러! 리버스보틀","제이에스티나/스톤헨지/마크제이콥스/TISSOT 쥬얼리&시계 특가상품 + 추가쿠폰...","신세계몰 해피바이러스 여성샌들/슬리퍼 ",
@@ -56,6 +57,7 @@ public class NativeListActivity extends Activity implements CaulyNativeAdViewLis
 		.iconImageID(R.id.icon)							// 아이콘 등록
 		.titleID(R.id.title)							// 제목 등록
 		.subtitleID(R.id.subtitle)						// 부제목 등록
+		.sponsorPosition(R.id.sponsor, Direction.RIGHT)
 		.build();
 		CaulyNativeAdView nativeAd = new CaulyNativeAdView(this);
 		nativeAd.setAdInfo(adInfo);
