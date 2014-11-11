@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.fsn.cauly.CaulyAdInfo;
+import com.fsn.cauly.CaulyAdInfo.Direction;
 import com.fsn.cauly.CaulyNativeAdInfoBuilder;
 import com.fsn.cauly.CaulyNativeAdView;
 import com.fsn.cauly.CaulyNativeAdViewListener;
@@ -28,10 +29,11 @@ public class NativeViewActivity extends Activity implements CaulyNativeAdViewLis
 	public void showNative()
 	{
 		CaulyAdInfo adInfo = new CaulyNativeAdInfoBuilder(APP_CODE)
-		.layoutID(R.layout.activity_native_iconlist)
+		.layoutID(R.layout.activity_native_view)
 		.iconImageID(R.id.icon)
 		.titleID(R.id.title)
 		.subtitleID(R.id.subtitle)
+		.sponsorPosition(R.id.sponsor, Direction.CENTER)
 		.build();
 		CaulyNativeAdView nativeAd = new CaulyNativeAdView(this);
 		nativeAd.setAdInfo(adInfo);
